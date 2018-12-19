@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 function main(){
   const nomnoml = require("nomnoml")
   const {parse} = nomnoml

@@ -1,4 +1,7 @@
-const oboe = require("oboe")
+#!/usr/bin/env node
+
+const PassThrough= require("stream").PassThrough
+const Oboe = require("oboe")
 
 function *explode(comparments){
   for( const i in comparments){
@@ -54,14 +57,16 @@ NoboClass.prototype.printModule= function(){
 const classCursor= []
 
 function classGen(nomnoml){
-  function makeNode(){
+  function makeNode(node){
+      console.log("try me", node)
       if( node.type!== "CLASS"){
         return
       }
-      console.log(" mknode", popped.name)
       const popped= classCursor[ classCursor.length- 1]
+      console.log(" mknode", popped)
       classCursor.pop()
-      return NoboClass(node, popped)
+      return {"ok": "whatever"}
+      //return NoboClass(node, popped)
   }
   function printPath(arg){
     classCursor.push({})
@@ -79,17 +84,28 @@ function classGen(nomnoml){
 	console.log(" done", val),
      r(val)
     })
-  oboe({ body: nomnoml})
+  const gmafb= new PassThrough()
+  gmafb.end(new Buffer(JSON.stringify(nomnoml)))
+  const run= Oboe(gmafb)
+    //.path("*", printPath)
+    //.path("nodes.*", printPath)
+    //.node("nodes.*", makeNode)
+    //.path("nodes.*.compartments.*.nodes", printPath)
+    //.node("nodes.*.compartments.*.nodes", makeNode)
+    //.done(d=> {
+    //  console.log("fin", d)
+    //  res(d)
+    //})
+   
     .on("path", "*", printPath)
     .on("path", "nodes.*", printPath)
     .on("node", "nodes.*", makeNode)
-    .on("path", "nodes.*compartments.*.nodes", printPath)
-    .on("node", "nodes.*compartments.*.nodes", makeNode)
+    .on("path", "nodes.*.compartments.*.nodes", printPath)
+    .on("node", "nodes.*.compartments.*.nodes", makeNode)
     .on("done", d=> {
       console.log("fin", d)
       res(d)
     })
-  console.log("done1", done)
   done.then(x=> console.log("done2", x))
   return done
 }
@@ -99,5 +115,8 @@ function main( nomnoml= require("./nomnoml")()){
 }
 
 if(require.main=== module){
-  main().then(main => console.log(JSON.toString(main, null, "\t")))
+  main().then(main => console.log("!", JSON.stringify(main, null, "\t")))
 }
+
+process.on("uncaughtException", console.error)
+process.on("unhandledRejection", console.error)
