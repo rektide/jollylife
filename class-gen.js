@@ -37,7 +37,7 @@ function NoboClass(node, self){
 NoboClass.prototype.printClass= function(){  
   const
     memberInit= this.members.forEach( m=> `  this["${m}"]= null`)
-    methodDefs= this.methods.forEach( m=> `  ${m}
+    methodDefs= this.methods.forEach( m=> `  ${m}(){}`)
   return `
 class ${this.name}{ 
   constructor(){
