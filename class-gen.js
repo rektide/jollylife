@@ -46,6 +46,7 @@ class ${this.name}{
 ${methodDefs}
 }
 `
+}
 NoboClass.prototype.printModule= function(){
   return "export default "+ this.printClass()
 }
@@ -57,12 +58,20 @@ function classGen(nomnoml){
       if( node.type!== "CLASS"){
         return
       }
+      console.log(" mknode", popped.name)
       const popped= classCursor[ classCursor.length- 1]
-      classCursor.splice( classCursor.length- 1, 1)
+      classCursor.pop()
       return NoboClass(node, popped)
-  )
-  
+  }
+ 
+  let res
+  const done= new Promise( r=> res= r) 
   oboe(nomnoml)
+    //.on("node", {
+    //  "nodes.*": function(){
+    //    
+    //  }})
+    //.on("done", res)
     .path('nodes.*', function(path){
       classCursor.push({})
     })
@@ -71,14 +80,14 @@ function classGen(nomnoml){
       classCursor.push({})
     })
     .node('nodes.*.compartments.**nodes', makeNode)
+    .done(res)
+  return done
 }
 
-function main(){
-  const nomnoml = require("./nomnoml")
-  const classes= classGen(nomnoml)
-  console.log(JSON.stringify(classes, null, "\t")) 
+function main( nomnoml= require("./nomnoml")()){
+  return classGen(nomnoml)
 }
 
 if(require.main=== module){
-  console.log(main())
+  main().then(main => console.log(JSON.toString(main, null, "\t")))
 }
