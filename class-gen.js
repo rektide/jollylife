@@ -63,24 +63,34 @@ function classGen(nomnoml){
       classCursor.pop()
       return NoboClass(node, popped)
   }
+  function printPath(arg){
+    classCursor.push({})
+    console.log(" printPath", arg)
+  }
  
   let res
-  const done= new Promise( r=> res= r) 
-  oboe(nomnoml)
-    //.on("node", {
-    //  "nodes.*": function(){
-    //    
-    //  }})
-    //.on("done", res)
-    .path('nodes.*', function(path){
-      classCursor.push({})
+  function mkRes( r){
+    res= function(val){
+      console.log(val)
+      r(val)
+    }
+  }
+  const done= new Promise( r=> res= val=> {
+	console.log(" done", val),
+     r(val)
     })
-    .node('nodes.*', makeNode)
-    .path('nodes.*.compartments.**nodes', function(path){
-      classCursor.push({})
+  oboe({ body: nomnoml})
+    .on("path", "*", printPath)
+    .on("path", "nodes.*", printPath)
+    .on("node", "nodes.*", makeNode)
+    .on("path", "nodes.*compartments.*.nodes", printPath)
+    .on("node", "nodes.*compartments.*.nodes", makeNode)
+    .on("done", d=> {
+      console.log("fin", d)
+      res(d)
     })
-    .node('nodes.*.compartments.**nodes', makeNode)
-    .done(res)
+  console.log("done1", done)
+  done.then(x=> console.log("done2", x))
   return done
 }
 
