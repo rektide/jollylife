@@ -3,8 +3,8 @@
 const PassThrough= require("stream").PassThrough
 const Oboe = require("oboe")
 
-function *explode(comparments){
-  for( const i in comparments){
+function *explode(compartments){
+  for( const i in compartments){
     const lines= compartments[ i].lines
     for( const j in lines){
       const
@@ -22,8 +22,9 @@ function *explode(comparments){
 }
 
 function NoboClass(node, self){
-  Object.setPrototypeOf(self, NoboClass)
   Object.assign(self, node)
+  self.printClass= printClass
+  self.printModule= printModule
   self.lines= self.lines|| []
   const [...exploded]= explode(self)
 
@@ -31,26 +32,38 @@ function NoboClass(node, self){
   }else if(self.lines.length){
     self.members= exploded.filter( e=> e.member)
   }
+  if(!self.members){
+    self.members= []
+  }
   if(self.methods){
   }else if(self.lines.length){
     self.methods= exploded.filter( e=> e.methods)
   }
+  if(!self.methods){
+    self.methods= []
+  }
+  console.log("ax")
+  console.log(self.printClass())
   return self
 }
-NoboClass.prototype.printClass= function(){  
+function printClass(){  
+  if(!this|| !this.name){
+    console.error("what am i", this)
+    return
+  }
   const
-    memberInit= this.members.forEach( m=> `  this["${m}"]= null`)
-    methodDefs= this.methods.forEach( m=> `  ${m}(){}`)
+    memberInit= this.members.map( m=> `  this["${m}"]= null`).join("\n")
+    methodDefs= this.methods.map( m=> `  ${m}(){}`).join("\n")
   return `
 class ${this.name}{ 
   constructor(){
-    ${"\n"+memberInit.join("\n")}
+    ${"\n"+memberInit}
   }
 ${methodDefs}
 }
 `
 }
-NoboClass.prototype.printModule= function(){
+function printModule(){
   return "export default "+ this.printClass()
 }
 
@@ -58,55 +71,30 @@ const classCursor= []
 
 function classGen(nomnoml){
   function makeNode(node){
-      console.log("try me", node)
+      console.log("try me", JSON.stringify(node, null, "\t"))
       if( node.type!== "CLASS"){
         return
       }
       const popped= classCursor[ classCursor.length- 1]
-      console.log(" mknode", popped)
       classCursor.pop()
-      return {"ok": "whatever"}
-      //return NoboClass(node, popped)
+      return NoboClass(node, popped)
   }
-  function printPath(arg){
+  function printPath(...arg){
     classCursor.push({})
     console.log(" printPath", arg)
   }
  
   let res
-  function mkRes( r){
-    res= function(val){
-      console.log(val)
-      r(val)
-    }
-  }
-  const done= new Promise( r=> res= val=> {
-	console.log(" done", val),
-     r(val)
-    })
+  const done= new Promise( r=> res= val=> r(val))
   const gmafb= new PassThrough()
-  gmafb.end(new Buffer(JSON.stringify(nomnoml)))
+  gmafb.end(Buffer.from(JSON.stringify(nomnoml)))
   const run= Oboe(gmafb)
-    //.path("*", printPath)
-    //.path("nodes.*", printPath)
-    //.node("nodes.*", makeNode)
-    //.path("nodes.*.compartments.*.nodes", printPath)
-    //.node("nodes.*.compartments.*.nodes", makeNode)
-    //.done(d=> {
-    //  console.log("fin", d)
-    //  res(d)
-    //})
-   
-    .on("path", "*", printPath)
+    //.on("path", "*", printPath)
     .on("path", "nodes.*", printPath)
     .on("node", "nodes.*", makeNode)
     .on("path", "nodes.*.compartments.*.nodes", printPath)
     .on("node", "nodes.*.compartments.*.nodes", makeNode)
-    .on("done", d=> {
-      console.log("fin", d)
-      res(d)
-    })
-  done.then(x=> console.log("done2", x))
+    .on("done", res)
   return done
 }
 
@@ -115,8 +103,9 @@ function main( nomnoml= require("./nomnoml")()){
 }
 
 if(require.main=== module){
-  main().then(main => console.log("!", JSON.stringify(main, null, "\t")))
+  main()
+  //.then(main => console.log("!", JSON.stringify(main, null, "\t")))
 }
 
-process.on("uncaughtException", console.error)
-process.on("unhandledRejection", console.error)
+//process.on("uncaughtException", console.error)
+//process.on("unhandledRejection", console.error)
