@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"uses strict"
 
 const PassThrough= require("stream").PassThrough
 const Oboe = require("oboe")
@@ -9,20 +10,23 @@ function *explode(self){
     for( const j in lines){
       const
         line= lines[ j],
-        isMethod= line[ line.length- 1]=== ")" && line[ line.length- 2]=== "("
-        method= isMethod? line.substring( 0, line.length- 2): undefined
-        member= isMethod? undefined: line
+        isMethod= line[ line.length- 1]=== ")" && line[ line.length- 2]=== "(",
+        method= isMethod? line.substring( 0, line.length- 2): undefined,
+        typedMember= !isMethod? line.indexOf(":"): -1,
+        memberName= typedMember!== -1? line.substring( 0, typedMember): line,
+        memberType= typedMember!== -1? line.substring( typedMember+ 2): undefined,
+        member= !isMethod ? memberName: undefined
       yield {
         line,
         member,
-        method
+        method,
+        memberType
       }
     }
   }
 }
 
 function NoboClass(node, self= this){
-  console.log("node", node)
   Object.assign(self, node)
   self.printClass= printClass
   self.printModule= printModule
@@ -45,13 +49,15 @@ function printClass(){
     return
   }
   const
-    memberInit= this.members.map( m=> `    this["${m.line}"]= null`).join("\n")
+    memberInit= this.members.map( m=> `    this["${m.member}"]= null`).join("\n"),
+    memberFlow= this.members.filter( m=> m.memberType).map( m=> `  /*:: ${m.member}: ${m.memberType}; */`).join("\n"),
     methodDefs= this.methods.map( m=> `  ${m.line}{}`).join("\n")
   return `
 class ${this.name}{ 
   constructor(){
-    ${"\n"+memberInit}
+${memberInit}
   }
+${memberFlow}
 ${methodDefs}
 }
 `
@@ -64,16 +70,11 @@ const classCursor= []
 
 function classGen(nomnoml){
   function makeNode(node, path, ancestors){
-      console.log("try me", path, JSON.stringify(node, null, "\t"))
       if( node.type!== "CLASS"){
         return
       }
       return new NoboClass(node)
   }
-  //function printPath(...arg){
-  //  classCursor.push({})
-  //  console.log(" printPath", arg)
-  //}
  
   let res
   const done= new Promise( r=> res= val=> r(val))
