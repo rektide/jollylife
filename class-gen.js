@@ -4,6 +4,17 @@
 const PassThrough= require("stream").PassThrough
 const Oboe = require("oboe")
 
+function parseType( member){
+  const
+    typedMember= member.indexOf(":"),
+    memberName= typedMember!== -1? member.substring( 0, typedMember): member,
+    memberType= typedMember!== -1? member.substring( typedMember+ 2): undefined
+  return {
+    member: memberName,
+    memberType
+  }
+}
+
 function *explode(self){
   for( const i in self.compartments){
     const lines= self.compartments[ i].lines
@@ -12,15 +23,12 @@ function *explode(self){
         line= lines[ j],
         isMethod= line[ line.length- 1]=== ")" && line[ line.length- 2]=== "(",
         method= isMethod? line.substring( 0, line.length- 2): undefined,
-        typedMember= !isMethod? line.indexOf(":"): -1,
-        memberName= typedMember!== -1? line.substring( 0, typedMember): line,
-        memberType= typedMember!== -1? line.substring( typedMember+ 2): undefined,
-        member= !isMethod ? memberName: undefined
+        { member, memberType}= isMethod? {}: parseType( line)
       yield {
         line,
         member,
-        method,
-        memberType
+        memberType,
+        method
       }
     }
   }
