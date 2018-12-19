@@ -3,9 +3,9 @@
 const PassThrough= require("stream").PassThrough
 const Oboe = require("oboe")
 
-function *explode(compartments){
-  for( const i in compartments){
-    const lines= compartments[ i].lines
+function *explode(self){
+  for( const i in self.compartments){
+    const lines= self.compartments[ i].lines
     for( const j in lines){
       const
         line= lines[ j],
@@ -21,28 +21,21 @@ function *explode(compartments){
   }
 }
 
-function NoboClass(node, self){
+function NoboClass(node, self= this){
+  console.log("node", node)
   Object.assign(self, node)
   self.printClass= printClass
   self.printModule= printModule
-  self.lines= self.lines|| []
-  const [...exploded]= explode(self)
+  self.lines= self.lines|| [...explode(self)]
 
   if(self.members){
-  }else if(self.lines.length){
-    self.members= exploded.filter( e=> e.member)
-  }
-  if(!self.members){
-    self.members= []
+  }else{
+    self.members= self.lines.filter( e=> e.member)
   }
   if(self.methods){
-  }else if(self.lines.length){
-    self.methods= exploded.filter( e=> e.methods)
+  }else{
+    self.methods= self.lines.filter( e=> e.method)
   }
-  if(!self.methods){
-    self.methods= []
-  }
-  console.log("ax")
   console.log(self.printClass())
   return self
 }
@@ -52,8 +45,8 @@ function printClass(){
     return
   }
   const
-    memberInit= this.members.map( m=> `  this["${m}"]= null`).join("\n")
-    methodDefs= this.methods.map( m=> `  ${m}(){}`).join("\n")
+    memberInit= this.members.map( m=> `    this["${m.line}"]= null`).join("\n")
+    methodDefs= this.methods.map( m=> `  ${m.line}{}`).join("\n")
   return `
 class ${this.name}{ 
   constructor(){
@@ -70,19 +63,17 @@ function printModule(){
 const classCursor= []
 
 function classGen(nomnoml){
-  function makeNode(node){
-      console.log("try me", JSON.stringify(node, null, "\t"))
+  function makeNode(node, path, ancestors){
+      console.log("try me", path, JSON.stringify(node, null, "\t"))
       if( node.type!== "CLASS"){
         return
       }
-      const popped= classCursor[ classCursor.length- 1]
-      classCursor.pop()
-      return NoboClass(node, popped)
+      return new NoboClass(node)
   }
-  function printPath(...arg){
-    classCursor.push({})
-    console.log(" printPath", arg)
-  }
+  //function printPath(...arg){
+  //  classCursor.push({})
+  //  console.log(" printPath", arg)
+  //}
  
   let res
   const done= new Promise( r=> res= val=> r(val))
@@ -90,10 +81,11 @@ function classGen(nomnoml){
   gmafb.end(Buffer.from(JSON.stringify(nomnoml)))
   const run= Oboe(gmafb)
     //.on("path", "*", printPath)
-    .on("path", "nodes.*", printPath)
+    //.on("path", "nodes.*", printPath)
     .on("node", "nodes.*", makeNode)
-    .on("path", "nodes.*.compartments.*.nodes", printPath)
+    //.on("path", "nodes.*.compartments.*.nodes", printPath)
     .on("node", "nodes.*.compartments.*.nodes", makeNode)
+    .on("fail", fml=> console.error({fml}))
     .on("done", res)
   return done
 }
