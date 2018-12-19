@@ -1,0 +1,795 @@
+{
+	"lines": [],
+	"nodes": [
+		{
+			"type": "CLASS",
+			"name": "_reflect",
+			"compartments": [
+				{
+					"lines": [
+						"_reflect"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "pipelineNames",
+			"compartments": [
+				{
+					"lines": [
+						"pipelineNames"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "PhasedMiddleware",
+			"compartments": [
+				{
+					"lines": [
+						"PhasedMiddleware"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "ProxClass",
+			"compartments": [
+				{
+					"lines": [
+						"ProxClass"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"make(obj={}, opts)"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "Prox",
+			"compartments": [
+				{
+					"lines": [
+						"Prox"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"constructor(obj, { pipelines, middlewares, name }= defaults)"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"proxied"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "stripHandlerSuffix",
+			"compartments": [
+				{
+					"lines": [
+						"stripHandlerSuffix"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "context",
+			"compartments": [
+				{
+					"lines": [
+						"context"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"setOutput(output)"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"inputs",
+						"output",
+						"state",
+						"phasedMiddleware",
+						"phasedRun",
+						"pipelineName",
+						"position",
+						"plugin",
+						"handler",
+						"symbol"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "plugin",
+			"compartments": [
+				{
+					"lines": [
+						"plugin"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"handle(context : Context)"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "phase",
+			"compartments": [
+				{
+					"lines": [
+						"phase"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "red",
+			"compartments": [
+				{
+					"lines": [
+						"red"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "green",
+			"compartments": [
+				{
+					"lines": [
+						"green"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "yellow",
+			"compartments": [
+				{
+					"lines": [
+						"yellow"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "walk",
+			"compartments": [
+				{
+					"lines": [
+						"walk"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "blinking",
+			"compartments": [
+				{
+					"lines": [
+						"blinking"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "dontWalk",
+			"compartments": [
+				{
+					"lines": [
+						"dontWalk"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "pipeline",
+			"compartments": [
+				{
+					"lines": [
+						"pipeline"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "leftTurnLane",
+			"compartments": [
+				{
+					"lines": [
+						"leftTurnLane"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "straightAhead",
+			"compartments": [
+				{
+					"lines": [
+						"straightAhead"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "crosswalk",
+			"compartments": [
+				{
+					"lines": [
+						"crosswalk"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "get",
+			"compartments": [
+				{
+					"lines": [
+						"get"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "set",
+			"compartments": [
+				{
+					"lines": [
+						"set"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "Pirate",
+			"compartments": [
+				{
+					"lines": [
+						"Pirate"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"eyeCount: Int"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"raid()",
+						"pillage()"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [],
+					"nodes": [
+						{
+							"type": "CLASS",
+							"name": "beard",
+							"compartments": [
+								{
+									"lines": [
+										"beard"
+									],
+									"nodes": [],
+									"relations": []
+								}
+							]
+						},
+						{
+							"type": "CLASS",
+							"name": "parrot",
+							"compartments": [
+								{
+									"lines": [
+										"parrot"
+									],
+									"nodes": [],
+									"relations": []
+								}
+							]
+						},
+						{
+							"type": "CLASS",
+							"name": "foul mouth",
+							"compartments": [
+								{
+									"lines": [
+										"foul mouth"
+									],
+									"nodes": [],
+									"relations": []
+								}
+							]
+						}
+					],
+					"relations": [
+						{
+							"id": 26,
+							"assoc": "--",
+							"start": "beard",
+							"end": "parrot",
+							"startLabel": "",
+							"endLabel": ""
+						},
+						{
+							"id": 27,
+							"assoc": "-:>",
+							"start": "beard",
+							"end": "foul mouth",
+							"startLabel": "",
+							"endLabel": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "ABSTRACT",
+			"name": "Marauder",
+			"compartments": [
+				{
+					"lines": [
+						"Marauder"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "mischief",
+			"compartments": [
+				{
+					"lines": [
+						"mischief"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "jollyness",
+			"compartments": [
+				{
+					"lines": [
+						"jollyness"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "rum",
+			"compartments": [
+				{
+					"lines": [
+						"rum"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"tastiness: Int"
+					],
+					"nodes": [],
+					"relations": []
+				},
+				{
+					"lines": [
+						"swig()"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CLASS",
+			"name": "singing",
+			"compartments": [
+				{
+					"lines": [
+						"singing"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "START",
+			"name": "st",
+			"compartments": [
+				{
+					"lines": [
+						"st"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "STATE",
+			"name": "plunder",
+			"compartments": [
+				{
+					"lines": [
+						"plunder"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "CHOICE",
+			"name": "more loot",
+			"compartments": [
+				{
+					"lines": [
+						"more loot"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "END",
+			"name": "e",
+			"compartments": [
+				{
+					"lines": [
+						"e"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "ACTOR",
+			"name": "Sailor",
+			"compartments": [
+				{
+					"lines": [
+						"Sailor"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		},
+		{
+			"type": "USECASE",
+			"name": "shiver me",
+			"compartments": [
+				{
+					"lines": [
+						"shiver me",
+						"timbers"
+					],
+					"nodes": [],
+					"relations": []
+				}
+			]
+		}
+	],
+	"relations": [
+		{
+			"id": 0,
+			"assoc": "--",
+			"start": "ProxClass",
+			"end": "Prox",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 1,
+			"assoc": "-:>",
+			"start": "Prox",
+			"end": "PhasedMiddleware",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 2,
+			"assoc": "<:-",
+			"start": "phase",
+			"end": "red",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 3,
+			"assoc": "<:-",
+			"start": "phase",
+			"end": "green",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 4,
+			"assoc": "<:-",
+			"start": "phase",
+			"end": "yellow",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 5,
+			"assoc": "<:-",
+			"start": "phase",
+			"end": "walk",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 6,
+			"assoc": "<:-",
+			"start": "phase",
+			"end": "blinking",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 7,
+			"assoc": "<:-",
+			"start": "phase",
+			"end": "dontWalk",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 8,
+			"assoc": "<:-",
+			"start": "pipeline",
+			"end": "leftTurnLane",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 9,
+			"assoc": "<:-",
+			"start": "pipeline",
+			"end": "straightAhead",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 10,
+			"assoc": "<:-",
+			"start": "pipeline",
+			"end": "crosswalk",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 11,
+			"assoc": "<:-",
+			"start": "pipeline",
+			"end": "get",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 12,
+			"assoc": "<:-",
+			"start": "pipeline",
+			"end": "set",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 13,
+			"assoc": "<:--",
+			"start": "Marauder",
+			"end": "Pirate",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 14,
+			"assoc": "-",
+			"start": "Pirate",
+			"end": "mischief",
+			"startLabel": "",
+			"endLabel": "0..7"
+		},
+		{
+			"id": 15,
+			"assoc": "->",
+			"start": "jollyness",
+			"end": "Pirate",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 16,
+			"assoc": "->",
+			"start": "jollyness",
+			"end": "rum",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 17,
+			"assoc": "->",
+			"start": "jollyness",
+			"end": "singing",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 18,
+			"assoc": "->",
+			"start": "Pirate",
+			"end": "rum",
+			"startLabel": "",
+			"endLabel": "*"
+		},
+		{
+			"id": 19,
+			"assoc": "->",
+			"start": "Pirate",
+			"end": "singing",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 20,
+			"assoc": "<->",
+			"start": "singing",
+			"end": "rum",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 21,
+			"assoc": "->",
+			"start": "st",
+			"end": "plunder",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 22,
+			"assoc": "->",
+			"start": "plunder",
+			"end": "more loot",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 23,
+			"assoc": "->",
+			"start": "more loot",
+			"end": "st",
+			"startLabel": "",
+			"endLabel": ""
+		},
+		{
+			"id": 24,
+			"assoc": "->",
+			"start": "more loot",
+			"end": "e",
+			"startLabel": "no",
+			"endLabel": ""
+		},
+		{
+			"id": 25,
+			"assoc": "-",
+			"start": "Sailor",
+			"end": "shiver me",
+			"startLabel": "",
+			"endLabel": ""
+		}
+	],
+	"directives": {
+		"lineWidth": "3"
+	}
+}
